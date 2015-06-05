@@ -26,7 +26,7 @@ class GoogleTrendsApi{
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, 1);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-		curl_setopt($ch, CURLOPT_REFERER, $referer);
+		curl_setopt($ch, CURLOPT_REFERER, $referrer);
 		curl_setopt($ch, CURLOPT_USERAGENT, $agent);
 
 		$this->_xml_buffer = curl_exec($ch);

@@ -48,7 +48,6 @@ for ($i = 0; $i < $googleTrends->totalItemsInFeed(); $i++){
 
 	}else{
 
-		echo "<h2>".$trendsTrems_id."</h2>";
 		$last_id_trendsTerms = $trendsTrems_id;
 	}
 
@@ -68,6 +67,7 @@ for ($i = 0; $i < $googleTrends->totalItemsInFeed(); $i++){
 	$image_url		= $googleTrends->gethtPicture();
 	$image_source	= $googleTrends->gethtPictureSource();
 
+	echo "<b>Tráfico: $traffic</b><br/>";
 	$last_id_trendsTermsData	= $bd->insertTrendsTermsData( 	$last_id_trendsTerms , 
 																$posicionTrends , 
 																$traffic , 
