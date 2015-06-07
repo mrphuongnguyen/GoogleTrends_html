@@ -36,14 +36,14 @@ class listTrendsTerms{
 	public function show(){
 
 		echo "<table>";
-		echo "<tr><td width='200px'><b>Fecha</b></td><td width='400'><b>Termino</b></td>";
+		echo "<tr><td width='200px'><b>Fecha del Feed</b></td><td width='400'><b>Termino</b></td><td width='400'><b>Fecha del impresión en google trends</b></td>";
 		
 		$lista = $this->listI();
 
 		foreach ($lista as $key => $value) {
 			//print_r($value);
 
-			echo "<tr><td width='300px'>".$value["fecha_publicacion"]."</td><td width='400'><a href='./class.reportHTML.php?termino=".$value["termino"]."'>".$value["termino"]."</a></td>";
+			echo "<tr><td width='300px'>".$value["fecha_publicacion"]."</td><td width='400'><a href='./class.reportHTML.php?termino=".$value["termino"]."'>".$value["termino"]."</a></td><td>".date('d/m/Y H:i:s',$value["fecha_reporte"])."</td>";
 		}
 
 
