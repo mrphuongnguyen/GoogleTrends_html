@@ -176,6 +176,22 @@ Class dbTrends{
 
 
 
+	public function updateDescription (
+		$description , $trendsTerms_id
+
+	){
+
+		$_db 	= new myDBC();
+		$_query	= "UPDATE trendsTerms 
+					SET descripcion = '$description'
+					WHERE trendsTerms_id = '$trendsTerms_id';";
+
+		$_db->runQuery($_query);
+		return true;
+	}
+
+
+
 }
 
 

@@ -49,6 +49,11 @@ for ($i = 0; $i < $googleTrends->totalItemsInFeed(); $i++){
 	}else{
 
 		$last_id_trendsTerms = $trendsTrems_id;
+
+		// Actualizamos el campo descripcion
+		$bd->updateDescription( $description , $last_id_trendsTerms );
+
+
 	}
 
 	echo $title."<br/>";
