@@ -1,6 +1,8 @@
 <?php
 // Class enlista todos los elementos
 include_once('class.googleTrendsDB.php');
+date_default_timezone_set('America/Mexico_City');
+header('Content-Type: text/html; charset=utf-8');
 
 
 class listTrendsTerms{
@@ -40,7 +42,7 @@ class listTrendsTerms{
 	public function show(){
 
 		echo "<table>";
-		echo "<tr><td width='200px'><b>Fecha del Feed</b>
+		echo "<tr><td width='100px'><b>Imagen</b>
 			</td><td width='200px'><b>Termino</b></td>
 			<td width='200px'><b>Fecha de impresión</b></td>
 			<td width='100px'><b>Tráfico</b></td>
@@ -49,17 +51,19 @@ class listTrendsTerms{
 		$lista = $this->listI();
 
 		foreach ($lista as $key => $value) {
-			//print_r($value);
 
-			echo "<tr><td>".$value["fecha_publicacion"]."</td>
-				<td><a href='./class.reportHTML.php?termino=".$value["termino"]."'>".$value["termino"]."</a></td>
-				<td>".date('d/m/Y H:i:s',$value["fecha_reporte"])."</td>";
 		
 			$bdTerms = new dbTrends();
 			$trendsTermsData = $bdTerms->getTrendsTermsData( $value["trendsTerms_id"] );
+			
+			echo "<tr><td><img src='https:".$trendsTermsData[0]["imagen"]."'></td>
+				<td><a href='./class.reportHTML.php?termino=".$value["termino"]."'>".$value["termino"]."</a></td>
+				<td>".date('d/m/Y H:i:s',$value["fecha_reporte"])."</td>";
+
 			echo "<td>".$trendsTermsData[0]["trafico"]."</td>";
 
 			$trendsSource = $bdTerms->getTrendsTermsSource( $trendsTermsData[0]["trendsTermsData_id"] );
+
 			echo "<td> Fuente: ".$trendsSource[0]["fuente"]."
 			<br>URL:<a href='".$trendsSource[0]["url"]."'>".$trendsSource[0]["url"]."</a></td>";
 
