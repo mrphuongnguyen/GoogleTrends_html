@@ -86,23 +86,99 @@ Class dbTrends{
 	}
 
 
+	// Metodo encargado de enlistar todos los terminos
+	public function listAllTerms(){
+
+		$array_return 	= array();
+		$_db 			= new myDBC();
+		$_query			= "Select * FROM trendsTerms order by fecha_reporte desc;";
+		$_result 		= $_db->runQuery($_query);
+		
+		if(isset( $_result )){
+			while( $row = mysqli_fetch_assoc(  $_result ) ){
+				
+				$array_return[] = $row;
+				
+			}
+			
+		}
+
+		if( count( $array_return ) > 0 ){
+
+			return  $array_return;
+		}else{
+
+			return  0;
+		}
+		
+
+		
+	}
+
+
+	public function getTrendsTermsData ( 
+		$trendsTerms_id
+	){
+
+		$array_return 	= array();
+		$_db 			= new myDBC();
+		$_query			= "Select * FROM trendsTermsData Where trendsTerms_id = '$trendsTerms_id' order by fecha_reporte desc;";
+		$_result 		= $_db->runQuery($_query);
+		
+		if(isset( $_result )){
+			while( $row = mysqli_fetch_assoc(  $_result ) ){
+				
+				$array_return[] = $row;
+				
+			}
+			
+		}
+
+		if( count( $array_return ) > 0 ){
+
+			return  $array_return;
+		}else{
+
+			return  0;
+		}		
+
+	}
+
+
+	public function getTrendsTermsSource (
+		$trendsTermsData_id
+
+	){
+
+		$array_return 	= array();
+		$_db 			= new myDBC();
+		$_query			= "Select * FROM trendsTermsSource Where trendsTermsData_id = '$trendsTermsData_id' order by fecha_reporte desc;";
+		$_result 		= $_db->runQuery($_query);
+		
+		if(isset( $_result )){
+			while( $row = mysqli_fetch_assoc(  $_result ) ){
+				
+				$array_return[] = $row;
+				
+			}
+			
+		}
+
+		if( count( $array_return ) > 0 ){
+
+			return  $array_return;
+		}else{
+
+			return  0;
+		}		
+
+	}
+
 
 
 }
 
-/*
-$bd = new dbTrends();
-$last_id_trendsTerms 		= $bd->insertTrendsTerms("termino" , "descripcion" , "mi link","date");
-$last_id_trendsTermsData	= $bd->insertTrendsTermsData( $last_id_trendsTerms , "3" , "5000+" , "fecha_publicacion" , "url_image" , "Televisa Deportes");
-$last_id_trendsTermsSource	= $bd->insertTrendsTermsSource( $last_id_trendsTermsData , "titulos news" , "descripcion news" , "url_news" , "fuente_news" );
-echo "Inser trendsTerms: ".$last_id_trendsTerms;
-echo "Insert trendsTermsData: ".$last_id_trendsTermsData;
-echo "Insert trendsTermsSource: ".$last_id_trendsTermsSource;
 
-echo "<p>";
-echo "Test Search:";
-echo $bd->seachIDByLink( 'mi+link2' );
-*/
 
 
 
