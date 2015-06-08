@@ -12,7 +12,7 @@ class listTrendsTerms{
 
 	){	
 
-		$limit_sentence = ($limit)? 'limit 100' : '';
+		$limit_sentence = ($limit)? 'limit 250' : '';
 
 		$array_return 	= array();
 		$_db 			= new myDBC();
