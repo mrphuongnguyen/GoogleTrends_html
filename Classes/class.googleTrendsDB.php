@@ -115,6 +115,67 @@ Class dbTrends{
 		
 	}
 
+	public function converDateToStrtotime (
+		$date
+	){
+
+		if(!empty($date)){
+
+			$date_explode = explode("-", $date);
+			return $date_explode[2]."-".$date_explode[1]."-".$date_explode[0];
+
+		}else{
+
+			return false;
+
+		}
+
+	}
+
+
+	public function covertDateToUnixTime( $date ){
+
+		return $timestamp = strtotime( $date );
+
+	}
+
+
+	public function listByDateTerms(
+		$date
+
+	){
+
+		$manana = date('d-m-Y',strtotime("+1 days", strtotime( $this->converDateToStrtotime( $date ) ) ) );
+		
+		$unix_hoy 		= $this->covertDateToUnixTime( $date );
+		$unix_manana	= $this->covertDateToUnixTime( $manana );
+		
+		$array_return 	= array();
+		$_db 			= new myDBC();
+		$_query			= "Select * FROM trendsTerms WHERE fecha_reporte  BETWEEN $unix_hoy AND $unix_manana order by fecha_reporte desc;";
+		$_result 		= $_db->runQuery($_query);
+		
+		
+		if(isset( $_result )){
+			while( $row = mysqli_fetch_assoc(  $_result ) ){
+				
+				$array_return[] = $row;
+				
+			}
+			
+		}
+
+		if( count( $array_return ) > 0 ){
+
+			return  $array_return;
+		}else{
+
+			return  0;
+		}
+
+
+	}
+
 
 	public function getTrendsTermsData ( 
 		$trendsTerms_id

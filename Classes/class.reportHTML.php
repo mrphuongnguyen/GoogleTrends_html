@@ -216,11 +216,11 @@ class reportHTML{
 
 
 }
-
+/*
 $termino = $_GET["termino"];
 
 $report = new reportHTML($termino);
 $report->showReport();
 echo "Listo";
-
+*/
 ?>
