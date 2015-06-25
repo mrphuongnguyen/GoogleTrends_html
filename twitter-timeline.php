@@ -8,6 +8,7 @@ date_default_timezone_set('America/Mexico_City');
 // Intanciamos la clase de lugares
 $trends       = new TrendsPlaceBD();
 $userTimeline = new TwitterUserTimeline();
+$userTimeline->total_results = 50;
 
 
 ?>
@@ -101,7 +102,7 @@ $userTimeline = new TwitterUserTimeline();
     for( $i = 0; $i <= $total_dias_restar; $i++ ){
 
       $new_date = date('d-m-Y',strtotime("-$i days", strtotime($fecha)));
-      echo "<a href='./twitter.php'?date=$new_date'>".$new_date."</a><br/>";
+      echo "<a href='./twitter.php?date=$new_date'>".$new_date."</a><br/>";
 
     }
 
@@ -134,68 +135,65 @@ $userTimeline = new TwitterUserTimeline();
     </div>
     <div class="col-md-10">
       
-      <?php
+     <?php
 
-      $array_table = array();
-        if( isset ($_GET["woeid"]) ){
+     $userTimeline->query_user = $_GET["user"];
+     $userTimeline->get_json();
+     $userTimeline->get_profile_info();
 
-          $trends->place = $_GET["woeid"];
-          $array_table = $trends->get_tweets_today();
-          echo "<h3>Tendencias en ".$_GET["woeid"]."</h3>";
+     $objHeader = $userTimeline->get_profile_info();
 
-        }elseif ( isset ($_GET["date"]) ){
+     if ( $userTimeline->get_error()  ){
 
-          $date_id = str_replace("-", "", $_GET["date"]);
-          $array_table = $trends->get_trends_by_dateid( $date_id );
-          echo "<h3>Tendencias en México ".$_GET["date"]."</h3>";
+        echo "Usuario no autorizado";
 
-        }else{
+     }else{
 
-          $date_id = date('dmY',time());
-          $array_table = $trends->get_trends_by_dateid( $date_id );
-          echo "<h3>Tendencias en México ".date("d-m-Y",time())."</h3>";
+     ?>
 
-        }
+     <table border=1 cellpadding ='2' width="95%">
+
+      <tr>
+        <td width="20px" rowspan="2" style='padding: 10px;'><?php echo "<img src='".$objHeader->profile_image_url."'>" ?></td>
+        <td style='padding: 10px;'><h3> <?php echo "@".$objHeader->screen_name ?> </h3></td>
+        <td align='center'> <b>Seguidores</b><br> <?php echo number_format($objHeader->followers_count , 0); ?> </td>
+      </tr>
+      <tr>
+        <td colspan="2" style='padding: 10px;'> <?php echo $objHeader->description; ?> </td>
+      </tr>
+
+     </table>
 
 
-      ?>
+     <?php
 
+      // Creamos listado de tweets
+      $obj_json = $userTimeline->json_decode;
+      
+      $cont = 1;
+      foreach ($obj_json as $key => $value) {
 
-
-      <table class="table table-hover">
-        <thead>
+       
+        echo "<br>";
+        echo "<table border=1 cellpadding ='2' width='95%''>
         <tr>
-          <th>#</th>
-          <th>Tweet</th>
-          <th>URL</th>
-          <th>Hora Ingreso</th>
-          
+        <td rowspan='3' width='50px' align='center' style='background-color: #e2e2e2;'><h4>".$cont."</h4></td><td colspan='2' style='padding: 10px;'>Fecha: ".$value->created_at."</td>
         </tr>
-      </thead>
-      <tbody>
+        <tr>
+        <td colspan='2' style='padding: 10px;'><b>".$value->text."</b></td>
+        </tr>
+        <td style='padding: 5px;'>Retweet: ".$value->retweet_count." </td><td style='padding: 5px;'>Favorite:  ".$value->favorite_count."</td>
+        </tr>
+        </table>";
+        
+        $cont ++;
+      }
 
-        <?php
 
-        // Verificamos por ciudad
 
-        if(count($array_table) > 0){
-          $cont = 1;
-          foreach ($array_table as $key => $value) {
-            
-              echo "<tr>
-                    <td>".$cont."</td>
-                    <td><b>".$value["twitter_name"]."</b></td>
-                    <td><a href='".$value["twitter_url"]."'>".$value["twitter_url"]."</a></td>
-                    <td>".date('H:i:s' ,$value["fecha_ingreso"] ) ."</td>
-                  </tr>";
-            $cont ++;
+      }
+     ?>
 
-          }
-        }
-
-        ?>
-     
-      </tbody>
 
     </div>
     <!--div class="col-md-4" id="detailBox" style="text-align: left;">
