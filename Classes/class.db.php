@@ -1,5 +1,6 @@
 <?php
 include_once('definitions.inc');
+date_default_timezone_set('America/Mexico_City');
 // My database Class called myDBC
 class myDBC {
  

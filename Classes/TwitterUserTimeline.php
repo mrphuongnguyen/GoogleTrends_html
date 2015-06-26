@@ -13,7 +13,35 @@ class TwitterUserTimeline {
 							"@MundoNarco",
 							"@SinEmbargoMX",
 							"@Milenio",
-							"@PedroFerriz"
+							"@PedroFerriz",
+							"@RevistaZocalo",
+							"@epigmenioibarra",
+							"@PuriCarpinteyro",
+							"@Mony_de_Swaan",
+							"@lopezdoriga",
+							"@CarlosLoret",
+							"@DeniseDresserG",
+							"@emeequis",
+							"@Pajaropolitico",
+							"@revistaetcetera",
+							"@Javier_Alarcon_",
+							"@homozapp",
+							"@jenarovillamil",
+							"@revistaproceso",
+							"@TeleviLeaks",
+							"@CNNMex",
+							"@LolitaAyalaN",
+							"@Adela_Micha",
+							"@soyirenelevy",
+							"@jovenescnnorona",
+							"@JohnMAckerman",
+							"@joserra_espn",
+							"@REFORMACOM",
+							"@reformanegocios",
+							"@JoseCardenas1",
+							"@NoticiasMVS",
+							"@AlvaroCueva"
+
 							);
 
 	var $total_results		= 10;
@@ -24,7 +52,7 @@ class TwitterUserTimeline {
 
 	public function __construct(){
 
-		$this->query_user = "@alarcon_00mx";
+		$this->query_user = $this->twitter_user[0];
 
 	}
 

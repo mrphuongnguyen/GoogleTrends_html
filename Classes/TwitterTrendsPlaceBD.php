@@ -2,7 +2,7 @@
 
 include_once( 'TwitterTrendsPlace.php' );
 include_once('class.db.php');
-date_default_timezone_set('America/Mexico_City');
+
 
 
 Class TrendsPlaceBD extends TrendsPlace{
